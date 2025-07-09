@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  musicsynth:
+    build: .
+    ports:
+      - "8501:8501"
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - STREAMLIT_SERVER_ENVIRONMENT=production
+    volumes:
+      - ./temp:/app/temp
+      - ./xml_files:/app/xml_files
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8501/_stcore/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Development version (optional)
+  musicsynth-dev:
+    build: .
+    ports:
+      - "8502:8501"
+    environment:
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_ANON_KEY=${SUPABASE_ANON_KEY}
+      - STREAMLIT_SERVER_ENVIRONMENT=development
+    volumes:
+      - .:/app
+      - ./temp:/app/temp
+      - ./xml_files:/app/xml_files
+    restart: unless-stopped
+    command: ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0", "--server.runOnSave=true"]
+    profiles:
+      - dev 

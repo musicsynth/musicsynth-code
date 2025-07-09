@@ -1,0 +1,33 @@
+[global]
+developmentMode = false
+showWarningOnDirectExecution = false
+
+[server]
+headless = true
+port = 8501
+address = "0.0.0.0"
+enableCORS = false
+enableXsrfProtection = true
+maxUploadSize = 200
+maxMessageSize = 200
+
+[browser]
+gatherUsageStats = false
+showErrorDetails = false
+
+[theme]
+primaryColor = "#8B5CF6"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F8FAFC"
+textColor = "#111827"
+font = "sans serif"
+
+[client]
+showErrorDetails = false
+toolbarMode = "minimal"
+caching = true
+allowRunOnSave = true
+
+[ui]
+hideTopBar = false
+hideSidebarNav = false 
